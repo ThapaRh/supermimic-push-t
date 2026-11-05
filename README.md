@@ -69,4 +69,3 @@ python train_world_model.py --episodes 100 --epochs 10
 - `heuristic_v2.py` / `heuristic_v3.py` — waypoint heuristics, see `EXPERIMENTS.md` for why they failed
 - `push_from_behind.py` — push straight from behind, no approach, saves `push_from_behind_metrics.json`
 - `EXPERIMENTS.md` — experiment log: what was tried, how it did, what changed
-- `push_t_explained.png` / `push_t_before_after.png` — diagrams of the problem, start vs success vs failure
