@@ -43,7 +43,7 @@ Diagnostics — pushing works, approach is the hard part:
 - Heuristic v2 (waypoint, stateless): 0/20, 152 px, T never moved — pusher oscillated at the waypoint
 - Heuristic v3 (waypoint with latch, assistant VM test): 0/20, 237 px, pusher hit the T sideways and spun it away
 
-Note: the Push-T setup used here (starts, target, success rule) is the standard public Push-T task, not a specification from Tang — see `EXPERIMENTS.md`, Open questions. Confirmation from Tang is pending.
+Note: the Push-T setup used here (starts, target, success rule) is the standard public Push-T task.
 
 Full log of what was tried, how it did, and what changed:
 `EXPERIMENTS.md`
@@ -66,6 +66,6 @@ python train_world_model.py --episodes 100 --epochs 10
 - `train_policy_v2.py` — Step 2 v2, shaped reward + near-contact starts, saves `policy_v2.pt`, `policy_metrics_v2.json`
 - `diagnose_policy.py` — print what a trained policy actually does in the real simulator
 - `heuristic_policy.py` — hand-coded push, straight to behind spot
-- `heuristic_v2.py` / `heuristic_v3.py` — waypoint heuristics, see `EXPERIMENTS.md` for why they failed
+- `heuristic_v2.py` — waypoint heuristic, see `EXPERIMENTS.md` for why it failed
 - `push_from_behind.py` — push straight from behind, no approach, saves `push_from_behind_metrics.json`
 - `EXPERIMENTS.md` — experiment log: what was tried, how it did, what changed
