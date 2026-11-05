@@ -1,13 +1,7 @@
 # supermimic-push-t — experiment log
 
-Project: apply the SuperMimic framework to standard Push-T.
-Test for: Prof. Chengzhou Tang, SPINS Lab, University of Manitoba.
-Deadline: Mon Nov 16, 2026.
-Repo: https://github.com/ThapaRh/supermimic-push-t
-
 This log is the record of what was tried, how it did, and what changed
-next. It is written as it happens, including the failures. The final
-report to Tang will be built from this log, not from memory.
+next. It is written as it happens, including the failures.
 
 ## Method, in brief
 
@@ -25,7 +19,7 @@ Transfer to Push-T:
 - World model: MLP, hidden 128, trained on k = 8-step windows (paper Eq. 1).
 - Policy training: imagined horizon H = 32, critic with lambda = 0.95,
   gamma = 0.99 (paper Eq. 2/3, SHAC-like).
-- Compute: Mac only, CPU/MPS, low-dim state, small MLPs.
+- Compute: Mac, CPU/MPS, low-dim state, small MLPs.
 - Judge: success rate and final error in the REAL pymunk simulator
   over 20 episodes, varied starts. Imagined return is a training
   signal only, never a result.
@@ -33,7 +27,7 @@ Transfer to Push-T:
 ## Log
 
 ### Step 0 — Random pusher baseline
-Date: Nov 5, 2026, ~11:18 AM. File: `push_t_random.py`.
+File: `push_t_random.py`.
 
 What was tried: one random Push-T episode, random action every 20 steps,
 300 steps max, in pymunk (512x512 table, T from a 120x30 top bar +
@@ -48,7 +42,7 @@ What this means: random fails, as expected. This is the baseline
 learning has to beat. Output: `push_t_random.png`.
 
 ### Step 1 — World model
-Date: Nov 5, 2026, ~11:21 AM. File: `train_world_model.py`.
+File: `train_world_model.py`.
 Run: `python3 train_world_model.py --episodes 100 --epochs 10`, on MPS.
 
 What was tried: collect 100 random episodes (30,000 transitions),
@@ -67,12 +61,8 @@ threshold, and most steps in random data are non-contact, so contact
 error is likely higher than this average. Outputs: `world_model.pt`,
 `world_model_metrics.json`, `world_model_loss.png`.
 
-Note: a `UserWarning` about converting a tensor with requires_grad
-to a scalar appeared in the first run. It was cosmetic, fixed by
-using `.detach()` in the loss logging.
-
 ### Step 2 v1 — Policy through the frozen world model
-Date: Nov 5, 2026, ~11:50 AM. File: `train_policy.py`.
+File: `train_policy.py`.
 Run: `python3 train_policy.py --iters 200`.
 
 What was tried: freeze the Step 1 world model, imagine H = 32 steps
@@ -105,7 +95,7 @@ enough to stumble into contact by chance.
 Outputs: `policy.pt`, `policy_metrics.json`.
 
 ### Step 2 v2 — Policy with shaped reward + near-contact starts
-Date: Nov 5, 2026. File: `train_policy_v2.py`. Status: running / to run.
+File: `train_policy_v2.py`.
 Run: `python3 train_policy_v2.py --iters 300`.
 
 What changed, and why:
@@ -122,31 +112,143 @@ What changed, and why:
    pusher-to-T distance at the end, so we can see whether the policy
    is actually moving the T in imagination.
 
-Hypothesis: with contact inside the horizon and a gradient to
-approach, imagined return should rise (less negative) and imagined
-T error should fall start -> end, and real success should rise above 0%.
+How it did:
+- Imagined return: -17.2 (iter 1) -> -22.2 (iter 300). Worse, not
+  better. Note: shaped reward makes this number not directly
+  comparable to v1's -11.9 -> -15.7.
+- Critic loss: 22.6 (iter 100) -> 7.7 (iter 300).
+- Imagined T error: ~150 px at start -> ~159-162 px at end of a
+  32-step imagined rollout. The T moved away from target, not toward it.
+- Imagined pusher-to-T distance at end: ~315 px. The pusher did not
+  approach the T in imagination, despite 80% near-contact starts.
+- Real simulator, 20 episodes: success 0/20 (0%)
+- Real final position error: 152.3 px mean
+- Real final angle error: 0.26 rad mean
 
-How it did: _to fill in when the run finishes — imagined return
-first -> final, critic loss, real success / 20, real final position
-and angle error._
+What this means: the real-simulator numbers are identical to v1
+to all decimal places (152.267 px, 0.258 rad). That means the
+T-block never moved in the real evaluation in either version.
+The initial T position alone gives ~150 px error, so both policies
+are effectively inert in the real simulator — the pusher never
+reaches / never moves the T. v2 did not fix the underlying problem;
+shaping and near starts were not enough, because the world model's
+imagined dynamics do not transfer to real contact, and/or the
+policy gradient through the model is pointing the wrong way.
 
 Outputs: `policy_v2.pt`, `policy_metrics_v2.json`.
 
-## Open questions for Tang (held, not yet sent)
+### Diagnosis — `diagnose_policy.py --policy policy_v2.pt`
+3 real episodes, seeds 1000-1002.
 
-- Are observations state or vision?
-- What is the deliverable, and what evaluation will he run?
-- Is there lab compute beyond a Mac, or plan CPU-only?
-- Can he share the link to the zita-ch implementation he mentioned?
+What it showed, episode by episode:
+- Ep 0: T (169, 147), pusher (366, 385). Action starts (-0.27, -0.18),
+  then (-0.76, +0.42), (-0.75, +0.40). Pusher goes to (18, 464),
+  top-left corner. T never moves, T-target stays 139 px throughout.
+- Ep 1: T (170, 179), pusher (372, 365). Action ~(-0.1, -0.3) throughout.
+  Pusher goes straight down to (347, 181), x never moves toward the T.
+  Pusher-T distance 274 -> 177 px, never contacts. T-target stays 115 px.
+- Ep 2: same pattern as Ep 0, pusher to (20, 479), top-left corner.
+  T-target stays 142 px throughout.
 
-Cadence question sent Nov 3 in lab Slack, awaiting reply. Do not
-send the above as a batch unless a real blocker arises.
+What this means: the policy is NOT inert. Actions are large
+(-0.7, +0.4 etc) and the pusher moves hundreds of pixels. It moves
+in the WRONG direction, to a corner, away from the T, instead of
+toward it. To reach the T from (366, 385), the action should be
+roughly (-0.6, -0.8). The policy gives (-0.7, +0.4) instead —
+left is right, up/down is flipped. The T never gets touched, so
+its error never changes, which explains the identical v1/v2 metrics.
 
-## Next steps
+### Heuristic — `heuristic_policy.py`
+20 episodes, seeds 1000-1019.
 
-1. Finish v2, record its real success rate honestly, even if it is 0%.
-2. If v2 still fails, next diagnostics: check world-model error
-   specifically on contact steps vs non-contact steps, and check
-   whether the policy moves the pusher toward the T at all.
-3. Push this log, the new policy file, and updated README to GitHub.
-4. Build the short final report from this log before Nov 16.
+How it did:
+- Success 0/20 (0%)
+- Real final position error: 286.1 px mean (284-288 px every seed)
+- Real final angle error: 0.24 rad mean (0.00 rad on 12 of 20 seeds)
+
+What this means: the heuristic also failed, and it failed WORSE
+than random (random / learned: ~152 px). It pushed the T AWAY
+from the target, to about 287 px away, consistently.
+
+Why: the heuristic goes straight from the pusher start (380, 380)
+to the "behind the T" spot (T - 40 px toward the target).
+That straight line passes THROUGH the T at (150, 150). So the
+pusher hits the T from the northeast side first, on the way to
+the behind spot, and pushes it southwest, away from the target.
+The T then keeps getting pushed southwest as the behind spot
+moves with it, until it ends up near the southwest corner.
+Angle error 0.00 on many seeds is consistent with the T ending
+up against a wall / corner, aligned.
+
+This is informative: approach navigation matters. To push the T
+northeast, the pusher must first go AROUND the T to the southwest
+side, not straight through it. Neither the learned policy nor
+this naive heuristic does that.
+
+### Push from behind — `push_from_behind.py`
+20 episodes, seeds 1000-1019.
+Pusher placed 50 px behind the T, push straight toward target, no navigation.
+
+How it did:
+- Success 12/20 (60%)
+- Real final position error: 112.7 px mean
+- Real final angle error: 0.89 rad mean
+
+Pattern, seed by seed:
+- Successes (12): pos err 28-30 px, angle 0.00-0.29 rad,
+  T final ~(237, 235). The episode stops as soon as it enters
+  the success zone (pos < 30, angle < 0.3), so it stops just
+  short of the target centre. That is why successes cluster at 28-30 px.
+- Failures (8): pos err 207-286 px, angle 1.07-3.10 rad,
+  T final ~(400-465, 400-451), northeast corner area. The T
+  spun and veered off, overshot the target, and ended in a corner.
+
+What this means: pushing physics DOES work. 60% success with
+no learning at all, just a straight push from behind. So the
+env is solvable, and approach is the hard part. The failures
+are angle / stability failures: when the initial T angle is
+larger, the pusher contacts off-centre, the T rotates, veers,
+and overshoots. A policy that can get behind the T, and then
+correct angle while pushing, should beat 60%.
+
+### Heuristic v2 — waypoint around south side
+File: `heuristic_v2.py`. 20 episodes, seeds 1000-1019.
+
+How it did:
+- Success 0/20 (0%)
+- Real final position error: 152.3 px mean
+- Real final angle error: 0.26 rad mean
+- Per-seed pos errors: 139, 115, 142, 146, 170, 136, 175, 157,
+  149, 185, 136, 165, 171, 131, 171, 157, 144, 132, 146, 177 px
+
+What this means: T never moved again. The per-seed errors are
+exactly the initial errors, and the mean is identical to v1/v2
+learned policies (152.267 px, 0.258 rad).
+
+Bug: the v2 stage logic was stateless and oscillated. At the waypoint
+(289, 27) the pusher was still 140 px from the T, so the rule
+"if far from waypoint AND far from T, go to waypoint" kept
+re-triggering. The pusher flipped between going to the waypoint
+and going to the behind spot, jittering at (263, 44) forever,
+never reaching the T.
+
+### Heuristic v3 — waypoint with a latch
+File: `heuristic_v3.py`. 20 episodes, seeds 1000-1019.
+
+How it did:
+- Success 0/20 (0%)
+- Real final position error: 236.9 px mean
+- Real final angle error: 1.14 rad mean
+
+What this means: the latch fixed the oscillation, but the pusher
+now arrives at the behind spot at full speed, from the southeast,
+moving northwest. It hits the T sideways, pushes it northwest
+away from the target, and chases it as it rotates. Trace, seed 1000:
+pusher (202, 91), T (168, 148), then T moves to
+(51, 367), angle -1.48 rad. Stage 1 never transitions
+to stage 2, because the pusher never gets within 40 px of the T
+without pushing it away first.
+
+Lesson: approach must be slow and aligned with the push direction,
+not just "get to the behind spot at full speed". Contact geometry
+is the hard part, for heuristics and for learned policies alike.

@@ -2,10 +2,6 @@
 
 Apply the SuperMimic framework to the standard Push-T task.
 
-This is an interview test for the SPINS Lab, University of Manitoba
-(Prof. Chengzhou Tang). If completed successfully, it supports a
-Fall 2027 PhD application. Deadline: Mon Nov 16, 2026.
-
 SuperMimic (Liao et al., arXiv 2610.28480, Oct 2026) trains a humanoid
 to track motion-capture clips by learning one differentiable world
 model and training the policy by backpropagation through short
@@ -36,7 +32,18 @@ Step 2 v1 — policy through the frozen world model (`train_policy.py`):
 - Did not learn to push; diagnosis and fix in `EXPERIMENTS.md`
 
 Step 2 v2 — shaped reward + near-contact starts (`train_policy_v2.py`):
-- In progress; results to be recorded in `EXPERIMENTS.md`
+- 300 iters, imagined return -17.2 -> -22.2 (worse), real success 0/20
+- Real final position error 152.3 px, angle error 0.26 rad, identical to v1
+- Did not learn; T never moved in real eval. Diagnosis in `EXPERIMENTS.md`
+
+Diagnostics — pushing works, approach is the hard part:
+- Learned policy v2: pusher moves to a corner, away from the T, T never moves
+- Naive heuristic (straight to behind spot): 0/20, 286 px, pushes T away on approach
+- Push straight from behind, no approach: **12/20 (60%)**, successes at 28-30 px, failures spin/overshoot to the northeast corner
+- Heuristic v2 (waypoint, stateless): 0/20, 152 px, T never moved — pusher oscillated at the waypoint
+- Heuristic v3 (waypoint with latch, assistant VM test): 0/20, 237 px, pusher hit the T sideways and spun it away
+
+Note: the Push-T setup used here (starts, target, success rule) is the standard public Push-T task, not a specification from Tang — see `EXPERIMENTS.md`, Open questions. Confirmation from Tang is pending.
 
 Full log of what was tried, how it did, and what changed:
 `EXPERIMENTS.md`
@@ -57,4 +64,9 @@ python train_world_model.py --episodes 100 --epochs 10
 - `train_world_model.py` — Step 1, collects transitions, fits the MLP world model, saves `world_model.pt`, `world_model_metrics.json`, `world_model_loss.png`
 - `train_policy.py` — Step 2, policy trained through the frozen world model (BPTT, H = 32, critic bootstrap), evaluated in the real simulator, saves `policy.pt`, `policy_metrics.json`
 - `train_policy_v2.py` — Step 2 v2, shaped reward + near-contact starts, saves `policy_v2.pt`, `policy_metrics_v2.json`
+- `diagnose_policy.py` — print what a trained policy actually does in the real simulator
+- `heuristic_policy.py` — hand-coded push, straight to behind spot
+- `heuristic_v2.py` / `heuristic_v3.py` — waypoint heuristics, see `EXPERIMENTS.md` for why they failed
+- `push_from_behind.py` — push straight from behind, no approach, saves `push_from_behind_metrics.json`
 - `EXPERIMENTS.md` — experiment log: what was tried, how it did, what changed
+- `push_t_explained.png` / `push_t_before_after.png` — diagrams of the problem, start vs success vs failure
