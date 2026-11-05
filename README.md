@@ -2,6 +2,10 @@
 
 Apply the SuperMimic framework to the standard Push-T task.
 
+This is an interview test for the SPINS Lab, University of Manitoba
+(Prof. Chengzhou Tang). If completed successfully, it supports a
+Fall 2027 PhD application. Deadline: Mon Nov 16, 2026.
+
 SuperMimic (Liao et al., arXiv 2610.28480, Oct 2026) trains a humanoid
 to track motion-capture clips by learning one differentiable world
 model and training the policy by backpropagation through short
@@ -26,6 +30,17 @@ Step 1 — world model (`train_world_model.py`):
 - 1-step T-position error: 15.3 px (held-out)
 - 8-step T-position error: 17.7 px (held-out)
 
+Step 2 v1 — policy through the frozen world model (`train_policy.py`):
+- 200 iters, imagined return -11.9 -> -15.7 (worse), real success 0/20
+- Real final position error 152.3 px, angle error 0.26 rad
+- Did not learn to push; diagnosis and fix in `EXPERIMENTS.md`
+
+Step 2 v2 — shaped reward + near-contact starts (`train_policy_v2.py`):
+- In progress; results to be recorded in `EXPERIMENTS.md`
+
+Full log of what was tried, how it did, and what changed:
+`EXPERIMENTS.md`
+
 ## Run it (Mac, CPU/MPS)
 
 ```bash
@@ -40,4 +55,6 @@ python train_world_model.py --episodes 100 --epochs 10
 
 - `push_t_random.py` — Step 0, one random Push-T episode, saves `push_t_random.png`
 - `train_world_model.py` — Step 1, collects transitions, fits the MLP world model, saves `world_model.pt`, `world_model_metrics.json`, `world_model_loss.png`
-- `train_policy.py` — Step 2 (next), policy trained through the frozen world model
+- `train_policy.py` — Step 2, policy trained through the frozen world model (BPTT, H = 32, critic bootstrap), evaluated in the real simulator, saves `policy.pt`, `policy_metrics.json`
+- `train_policy_v2.py` — Step 2 v2, shaped reward + near-contact starts, saves `policy_v2.pt`, `policy_metrics_v2.json`
+- `EXPERIMENTS.md` — experiment log: what was tried, how it did, what changed
