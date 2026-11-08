@@ -1,0 +1,8 @@
+{
+  "train_episodes": 80,
+  "val_episodes": 20,
+  "final_loss": 0.006934030475094915,
+  "one_step_T_pos_error_px_mean": 15.302363801002503,
+  "eight_step_T_pos_error_px_mean": 17.737859344482423,
+  "k": 8
+}
