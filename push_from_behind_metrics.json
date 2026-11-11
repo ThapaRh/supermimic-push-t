@@ -1,6 +1,0 @@
-{
-  "policy": "push straight from behind, no approach",
-  "real_success_rate_20_eps": 0.6,
-  "real_final_pos_error_px_mean": 112.7064963778017,
-  "real_final_angle_error_rad_mean": 0.8946136341056956
-}

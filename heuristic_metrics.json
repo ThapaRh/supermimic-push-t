@@ -1,6 +1,0 @@
-{
-  "policy": "heuristic (approach behind T, then push to target)",
-  "real_success_rate_20_eps": 0.0,
-  "real_final_pos_error_px_mean": 286.1206947241431,
-  "real_final_angle_error_rad_mean": 0.2392883056728758
-}

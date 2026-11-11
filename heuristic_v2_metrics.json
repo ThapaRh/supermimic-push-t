@@ -1,6 +1,0 @@
-{
-  "policy": "heuristic v2 (waypoint around south side, then push)",
-  "real_success_rate_20_eps": 0.0,
-  "real_final_pos_error_px_mean": 152.26704577638424,
-  "real_final_angle_error_rad_mean": 0.2580190385204996
-}
