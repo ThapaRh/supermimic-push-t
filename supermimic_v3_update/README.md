@@ -57,6 +57,12 @@ python3 supermimic_v3.py --iters 4000 --horizon 16 --tag v31_h16   # ~20 min on 
 python3 eval_v3.py --ckpt policy_v31_h16.pt --episodes 100 --seed0 2000
 ```
 
+Step 5 — ablations (`run_ablations.sh`), held-out success on 100 seeds:
+- 3 training seeds at H = 16: 99%, 99%, 100% (mean 99.3%)
+- No critic: 54%. The critic is essential.
+- H = 8: 90%; near-sparse reward: 81%, and slowest to learn (single seeds; an earlier unsaved run gave 100% for both, so these final numbers are within run-to-run noise)
+- Full table in `EXPERIMENTS.md`, Step 5
+
 Full log of what was tried, how it did, and what changed:
 `EXPERIMENTS.md`
 

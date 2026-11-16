@@ -337,10 +337,63 @@ Caveats, stated honestly:
   Standard gym-pusht (95% coverage, goal angle pi/4) is stricter and
   not yet tested.
 - The approach shaping term is dense; a sparse reward is not yet tested.
-- One training seed per setting so far.
+- One training seed per setting at this point; see Step 5 for 3 seeds.
 
-Next:
-- 3 training seeds per setting
-- critic on/off, H = 8/16/32, sparse vs dense reward (Tang's lecture
-  questions)
+### Step 5 — ablations (rerun Nov 16, `run_ablations.sh`)
+Tang's lecture questions: does the critic matter, how long should the
+imagined horizon be, does a sparse reward work, and how much do results
+vary between training seeds?
+
+Same v3.1 setup as Step 4 (4000 iters, policy lr 1e-4 cosine, clamp on,
+eval every 250 iters), changing one thing at a time with
+`supermimic_v3.py` flags: `--seed`, `--no_critic`, `--horizon`, `--sparse`.
+Checkpoint selection: best checkpoint on eval seeds 1000-1019.
+Held-out: seeds 2000-2099 (100 episodes, original starts), `eval_v3.py`.
+Outputs: `metrics_<tag>.json`, `policy_<tag>.pt`, `eval_<tag>_heldout.{json,png}`.
+
+| Run (tag) | First eval >= 90% | Mean of last 8 evals | Held-out (100 seeds) | Held-out pos err |
+|---|---|---|---|---|
+| H = 16, seed 0 (`v31_h16`) | iter 1000 | 96% | 99% | 27.8 px |
+| H = 16, seed 1 (`h16_seed1`) | iter 1250 | 92% | 99% | 24.4 px |
+| H = 16, seed 2 (`h16_seed2`) | iter 750 | 99% | 100% | 24.4 px |
+| H = 16, no critic (`h16_nocritic`) | never (best 75%) | 43% | 54% | 40.4 px |
+| H = 16, near-sparse reward (`h16_sparse`) | iter 3500 | 84% | 81% | 46.2 px |
+| H = 8 (`h8`) | iter 3000 | 83% | 90% | 26.7 px |
+| H = 32 (`v31_h32`, Step 4) | iter 750 | 92% | not run | — |
+
+Findings:
+- **The critic is essential.** Without it, held-out success is 54%
+  instead of 99-100%, and training never reaches 90%. With short
+  imagined rollouts, the critic is what carries reward from beyond the
+  horizon back into the policy gradient.
+- **Results are stable across training seeds.** 3 seeds at H = 16 give
+  99%, 99% and 100% held-out (mean 99.3%). Seeds differ mainly in how
+  fast they get there (first >= 90% at iter 750-1250).
+- **Horizon: H = 16 is reliable, but H = 8 vs 16 is not resolved.**
+  H = 8 reached 90% held-out here and learned slower (first >= 90% at
+  iter 3000), but the earlier Nov 8 run gave H = 8 100%. H = 32 learns as
+  fast as H = 16 but swings during training (0.9 -> 0.4 -> 0.85 -> 0.5),
+  consistent with longer BPTT chains giving larger, noisier gradients.
+- **Near-sparse reward learns slower; final success is unclear.** First
+  >= 90% came at iter 3500 here and iter 3250 on Nov 8 (vs 750-1250 for
+  dense H = 16), so the slowdown is consistent. Final held-out success
+  was 81% here but 100% on Nov 8. It still keeps a weak 0.05 approach
+  term, so it is not a pure 0/1 reward.
+- **Run-to-run variance is large.** The same flags (H = 16, seed 1) gave
+  88% on Nov 8 and 99% here, so training is not reproducible run to run,
+  and checkpoint selection on 20 episodes adds noise. Differences of
+  10-20 points between single runs should not be read as effects.
+
+Caveats:
+- Same simplified success rule as Step 4 (episode ends on entering the
+  zone, so successes cluster just under 30 px).
+- The no-critic, sparse and H = 8 runs use one training seed each.
+  An earlier, unsaved run of these ablations (Nov 8) gave noticeably
+  different numbers for H = 8 (100%) and near-sparse (100%), so single-seed
+  differences of ~10-20 points should be read with caution. The critic
+  result (~50% without it) was the same in both runs.
+- Pure 0/1 sparse reward and the gym-pusht coverage metric not tested.
+
+Next (optional):
 - gym-pusht coverage metric
+- pure 0/1 sparse reward

@@ -1,0 +1,702 @@
+[
+ {
+  "seed": 2000,
+  "success": true,
+  "pos_err": 27.0,
+  "ang_err": 0.096,
+  "steps": 32
+ },
+ {
+  "seed": 2001,
+  "success": true,
+  "pos_err": 22.1,
+  "ang_err": 0.136,
+  "steps": 31
+ },
+ {
+  "seed": 2002,
+  "success": true,
+  "pos_err": 29.6,
+  "ang_err": 0.209,
+  "steps": 37
+ },
+ {
+  "seed": 2003,
+  "success": true,
+  "pos_err": 21.8,
+  "ang_err": 0.02,
+  "steps": 33
+ },
+ {
+  "seed": 2004,
+  "success": false,
+  "pos_err": 276.9,
+  "ang_err": 1.108,
+  "steps": 200
+ },
+ {
+  "seed": 2005,
+  "success": true,
+  "pos_err": 21.0,
+  "ang_err": 0.15,
+  "steps": 31
+ },
+ {
+  "seed": 2006,
+  "success": true,
+  "pos_err": 23.2,
+  "ang_err": 0.085,
+  "steps": 56
+ },
+ {
+  "seed": 2007,
+  "success": true,
+  "pos_err": 25.2,
+  "ang_err": 0.169,
+  "steps": 33
+ },
+ {
+  "seed": 2008,
+  "success": true,
+  "pos_err": 25.8,
+  "ang_err": 0.183,
+  "steps": 68
+ },
+ {
+  "seed": 2009,
+  "success": true,
+  "pos_err": 27.3,
+  "ang_err": 0.159,
+  "steps": 28
+ },
+ {
+  "seed": 2010,
+  "success": true,
+  "pos_err": 22.5,
+  "ang_err": 0.02,
+  "steps": 34
+ },
+ {
+  "seed": 2011,
+  "success": true,
+  "pos_err": 23.4,
+  "ang_err": 0.006,
+  "steps": 32
+ },
+ {
+  "seed": 2012,
+  "success": true,
+  "pos_err": 25.1,
+  "ang_err": 0.266,
+  "steps": 29
+ },
+ {
+  "seed": 2013,
+  "success": false,
+  "pos_err": 257.4,
+  "ang_err": 2.063,
+  "steps": 200
+ },
+ {
+  "seed": 2014,
+  "success": true,
+  "pos_err": 26.1,
+  "ang_err": 0.006,
+  "steps": 32
+ },
+ {
+  "seed": 2015,
+  "success": true,
+  "pos_err": 22.4,
+  "ang_err": 0.238,
+  "steps": 30
+ },
+ {
+  "seed": 2016,
+  "success": false,
+  "pos_err": 31.0,
+  "ang_err": 0.32,
+  "steps": 200
+ },
+ {
+  "seed": 2017,
+  "success": true,
+  "pos_err": 17.8,
+  "ang_err": 0.142,
+  "steps": 30
+ },
+ {
+  "seed": 2018,
+  "success": true,
+  "pos_err": 29.8,
+  "ang_err": 0.151,
+  "steps": 30
+ },
+ {
+  "seed": 2019,
+  "success": false,
+  "pos_err": 37.9,
+  "ang_err": 0.069,
+  "steps": 200
+ },
+ {
+  "seed": 2020,
+  "success": true,
+  "pos_err": 12.1,
+  "ang_err": 0.136,
+  "steps": 32
+ },
+ {
+  "seed": 2021,
+  "success": true,
+  "pos_err": 29.0,
+  "ang_err": 0.077,
+  "steps": 38
+ },
+ {
+  "seed": 2022,
+  "success": true,
+  "pos_err": 24.0,
+  "ang_err": 0.197,
+  "steps": 31
+ },
+ {
+  "seed": 2023,
+  "success": true,
+  "pos_err": 26.5,
+  "ang_err": 0.077,
+  "steps": 34
+ },
+ {
+  "seed": 2024,
+  "success": false,
+  "pos_err": 276.9,
+  "ang_err": 1.108,
+  "steps": 200
+ },
+ {
+  "seed": 2025,
+  "success": true,
+  "pos_err": 26.9,
+  "ang_err": 0.169,
+  "steps": 35
+ },
+ {
+  "seed": 2026,
+  "success": true,
+  "pos_err": 29.7,
+  "ang_err": 0.292,
+  "steps": 30
+ },
+ {
+  "seed": 2027,
+  "success": true,
+  "pos_err": 24.4,
+  "ang_err": 0.023,
+  "steps": 34
+ },
+ {
+  "seed": 2028,
+  "success": true,
+  "pos_err": 26.6,
+  "ang_err": 0.247,
+  "steps": 30
+ },
+ {
+  "seed": 2029,
+  "success": true,
+  "pos_err": 29.5,
+  "ang_err": 0.037,
+  "steps": 32
+ },
+ {
+  "seed": 2030,
+  "success": true,
+  "pos_err": 25.8,
+  "ang_err": 0.252,
+  "steps": 30
+ },
+ {
+  "seed": 2031,
+  "success": true,
+  "pos_err": 15.5,
+  "ang_err": 0.145,
+  "steps": 32
+ },
+ {
+  "seed": 2032,
+  "success": true,
+  "pos_err": 28.4,
+  "ang_err": 0.07,
+  "steps": 35
+ },
+ {
+  "seed": 2033,
+  "success": true,
+  "pos_err": 22.3,
+  "ang_err": 0.195,
+  "steps": 69
+ },
+ {
+  "seed": 2034,
+  "success": true,
+  "pos_err": 22.2,
+  "ang_err": 0.101,
+  "steps": 34
+ },
+ {
+  "seed": 2035,
+  "success": true,
+  "pos_err": 22.6,
+  "ang_err": 0.094,
+  "steps": 67
+ },
+ {
+  "seed": 2036,
+  "success": true,
+  "pos_err": 21.6,
+  "ang_err": 0.166,
+  "steps": 30
+ },
+ {
+  "seed": 2037,
+  "success": false,
+  "pos_err": 32.1,
+  "ang_err": 0.18,
+  "steps": 200
+ },
+ {
+  "seed": 2038,
+  "success": false,
+  "pos_err": 34.7,
+  "ang_err": 0.19,
+  "steps": 200
+ },
+ {
+  "seed": 2039,
+  "success": true,
+  "pos_err": 20.7,
+  "ang_err": 0.055,
+  "steps": 34
+ },
+ {
+  "seed": 2040,
+  "success": true,
+  "pos_err": 17.3,
+  "ang_err": 0.135,
+  "steps": 30
+ },
+ {
+  "seed": 2041,
+  "success": true,
+  "pos_err": 26.3,
+  "ang_err": 0.27,
+  "steps": 31
+ },
+ {
+  "seed": 2042,
+  "success": true,
+  "pos_err": 27.1,
+  "ang_err": 0.227,
+  "steps": 29
+ },
+ {
+  "seed": 2043,
+  "success": true,
+  "pos_err": 26.1,
+  "ang_err": 0.227,
+  "steps": 32
+ },
+ {
+  "seed": 2044,
+  "success": true,
+  "pos_err": 25.7,
+  "ang_err": 0.139,
+  "steps": 38
+ },
+ {
+  "seed": 2045,
+  "success": true,
+  "pos_err": 25.4,
+  "ang_err": 0.218,
+  "steps": 65
+ },
+ {
+  "seed": 2046,
+  "success": true,
+  "pos_err": 25.0,
+  "ang_err": 0.046,
+  "steps": 31
+ },
+ {
+  "seed": 2047,
+  "success": false,
+  "pos_err": 264.1,
+  "ang_err": 1.724,
+  "steps": 200
+ },
+ {
+  "seed": 2048,
+  "success": true,
+  "pos_err": 25.5,
+  "ang_err": 0.04,
+  "steps": 31
+ },
+ {
+  "seed": 2049,
+  "success": false,
+  "pos_err": 231.2,
+  "ang_err": 1.326,
+  "steps": 200
+ },
+ {
+  "seed": 2050,
+  "success": true,
+  "pos_err": 23.5,
+  "ang_err": 0.015,
+  "steps": 33
+ },
+ {
+  "seed": 2051,
+  "success": true,
+  "pos_err": 28.3,
+  "ang_err": 0.069,
+  "steps": 33
+ },
+ {
+  "seed": 2052,
+  "success": true,
+  "pos_err": 26.5,
+  "ang_err": 0.073,
+  "steps": 69
+ },
+ {
+  "seed": 2053,
+  "success": true,
+  "pos_err": 29.3,
+  "ang_err": 0.172,
+  "steps": 30
+ },
+ {
+  "seed": 2054,
+  "success": true,
+  "pos_err": 25.5,
+  "ang_err": 0.133,
+  "steps": 32
+ },
+ {
+  "seed": 2055,
+  "success": true,
+  "pos_err": 22.3,
+  "ang_err": 0.03,
+  "steps": 32
+ },
+ {
+  "seed": 2056,
+  "success": true,
+  "pos_err": 20.7,
+  "ang_err": 0.143,
+  "steps": 31
+ },
+ {
+  "seed": 2057,
+  "success": true,
+  "pos_err": 15.3,
+  "ang_err": 0.16,
+  "steps": 31
+ },
+ {
+  "seed": 2058,
+  "success": false,
+  "pos_err": 44.1,
+  "ang_err": 0.041,
+  "steps": 200
+ },
+ {
+  "seed": 2059,
+  "success": true,
+  "pos_err": 12.6,
+  "ang_err": 0.095,
+  "steps": 32
+ },
+ {
+  "seed": 2060,
+  "success": true,
+  "pos_err": 28.4,
+  "ang_err": 0.153,
+  "steps": 34
+ },
+ {
+  "seed": 2061,
+  "success": true,
+  "pos_err": 25.8,
+  "ang_err": 0.217,
+  "steps": 29
+ },
+ {
+  "seed": 2062,
+  "success": true,
+  "pos_err": 26.2,
+  "ang_err": 0.05,
+  "steps": 33
+ },
+ {
+  "seed": 2063,
+  "success": true,
+  "pos_err": 20.9,
+  "ang_err": 0.193,
+  "steps": 32
+ },
+ {
+  "seed": 2064,
+  "success": true,
+  "pos_err": 23.8,
+  "ang_err": 0.243,
+  "steps": 31
+ },
+ {
+  "seed": 2065,
+  "success": true,
+  "pos_err": 13.4,
+  "ang_err": 0.137,
+  "steps": 46
+ },
+ {
+  "seed": 2066,
+  "success": true,
+  "pos_err": 28.5,
+  "ang_err": 0.09,
+  "steps": 34
+ },
+ {
+  "seed": 2067,
+  "success": true,
+  "pos_err": 26.5,
+  "ang_err": 0.238,
+  "steps": 31
+ },
+ {
+  "seed": 2068,
+  "success": true,
+  "pos_err": 24.5,
+  "ang_err": 0.078,
+  "steps": 35
+ },
+ {
+  "seed": 2069,
+  "success": true,
+  "pos_err": 24.8,
+  "ang_err": 0.105,
+  "steps": 31
+ },
+ {
+  "seed": 2070,
+  "success": false,
+  "pos_err": 38.8,
+  "ang_err": 0.11,
+  "steps": 200
+ },
+ {
+  "seed": 2071,
+  "success": true,
+  "pos_err": 29.2,
+  "ang_err": 0.07,
+  "steps": 33
+ },
+ {
+  "seed": 2072,
+  "success": false,
+  "pos_err": 32.3,
+  "ang_err": 0.233,
+  "steps": 200
+ },
+ {
+  "seed": 2073,
+  "success": true,
+  "pos_err": 21.8,
+  "ang_err": 0.21,
+  "steps": 31
+ },
+ {
+  "seed": 2074,
+  "success": false,
+  "pos_err": 261.1,
+  "ang_err": 1.669,
+  "steps": 200
+ },
+ {
+  "seed": 2075,
+  "success": true,
+  "pos_err": 22.7,
+  "ang_err": 0.151,
+  "steps": 32
+ },
+ {
+  "seed": 2076,
+  "success": false,
+  "pos_err": 256.8,
+  "ang_err": 2.065,
+  "steps": 200
+ },
+ {
+  "seed": 2077,
+  "success": true,
+  "pos_err": 22.3,
+  "ang_err": 0.195,
+  "steps": 68
+ },
+ {
+  "seed": 2078,
+  "success": true,
+  "pos_err": 26.7,
+  "ang_err": 0.136,
+  "steps": 30
+ },
+ {
+  "seed": 2079,
+  "success": false,
+  "pos_err": 36.0,
+  "ang_err": 0.126,
+  "steps": 200
+ },
+ {
+  "seed": 2080,
+  "success": true,
+  "pos_err": 25.2,
+  "ang_err": 0.054,
+  "steps": 30
+ },
+ {
+  "seed": 2081,
+  "success": true,
+  "pos_err": 28.2,
+  "ang_err": 0.178,
+  "steps": 67
+ },
+ {
+  "seed": 2082,
+  "success": false,
+  "pos_err": 251.0,
+  "ang_err": 1.62,
+  "steps": 200
+ },
+ {
+  "seed": 2083,
+  "success": true,
+  "pos_err": 16.2,
+  "ang_err": 0.138,
+  "steps": 30
+ },
+ {
+  "seed": 2084,
+  "success": false,
+  "pos_err": 36.7,
+  "ang_err": 0.051,
+  "steps": 200
+ },
+ {
+  "seed": 2085,
+  "success": true,
+  "pos_err": 22.8,
+  "ang_err": 0.025,
+  "steps": 31
+ },
+ {
+  "seed": 2086,
+  "success": true,
+  "pos_err": 15.4,
+  "ang_err": 0.068,
+  "steps": 32
+ },
+ {
+  "seed": 2087,
+  "success": false,
+  "pos_err": 230.9,
+  "ang_err": 1.424,
+  "steps": 200
+ },
+ {
+  "seed": 2088,
+  "success": true,
+  "pos_err": 29.1,
+  "ang_err": 0.217,
+  "steps": 68
+ },
+ {
+  "seed": 2089,
+  "success": true,
+  "pos_err": 29.1,
+  "ang_err": 0.229,
+  "steps": 58
+ },
+ {
+  "seed": 2090,
+  "success": true,
+  "pos_err": 28.2,
+  "ang_err": 0.229,
+  "steps": 27
+ },
+ {
+  "seed": 2091,
+  "success": true,
+  "pos_err": 17.8,
+  "ang_err": 0.137,
+  "steps": 29
+ },
+ {
+  "seed": 2092,
+  "success": true,
+  "pos_err": 26.3,
+  "ang_err": 0.188,
+  "steps": 33
+ },
+ {
+  "seed": 2093,
+  "success": false,
+  "pos_err": 31.8,
+  "ang_err": 0.24,
+  "steps": 200
+ },
+ {
+  "seed": 2094,
+  "success": true,
+  "pos_err": 20.1,
+  "ang_err": 0.182,
+  "steps": 29
+ },
+ {
+  "seed": 2095,
+  "success": true,
+  "pos_err": 29.7,
+  "ang_err": 0.033,
+  "steps": 31
+ },
+ {
+  "seed": 2096,
+  "success": true,
+  "pos_err": 30.0,
+  "ang_err": 0.206,
+  "steps": 29
+ },
+ {
+  "seed": 2097,
+  "success": true,
+  "pos_err": 29.2,
+  "ang_err": 0.175,
+  "steps": 32
+ },
+ {
+  "seed": 2098,
+  "success": true,
+  "pos_err": 28.8,
+  "ang_err": 0.137,
+  "steps": 28
+ },
+ {
+  "seed": 2099,
+  "success": true,
+  "pos_err": 20.6,
+  "ang_err": 0.199,
+  "steps": 71
+ }
+]
